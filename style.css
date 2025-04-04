@@ -12,7 +12,7 @@ body {
   flex-direction: column;
   width: 100%;
   height: 500px;
-  background: url(img/background.png) center/cover;
+  background: url(img/background.png) center / cover;
   margin: auto;
   border-radius: 20px;
   position: relative;
@@ -146,7 +146,7 @@ body {
 }
 .pop-up__refresh {
   width: 10rem;
-  height: 5rem;
+  height: 3rem;
   font-size: 1.5rem;
   color: brown;
   background-color: wheat;
@@ -192,6 +192,7 @@ body {
   }
   .game {
     height: 100%;
+    background: url(img/background.png) 10% / cover;
   }
   #canvas {
     height: 100%;

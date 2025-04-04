@@ -51,22 +51,22 @@ function level2() {
   GAME__LEVEL = 3;
 }
 function level3() {
-  CRATOR_MAKING_SPEED = 25;
-  CRATOR_VELOCITY = 8;
+  CRATOR_MAKING_SPEED = 35;
+  CRATOR_VELOCITY = 7;
   BUG_MAKING_SPEED = 150;
   GAME__LEVEL = 4;
 }
 function level4() {
-  CRATOR_MAKING_SPEED = 20;
+  CRATOR_MAKING_SPEED = 30;
   CRATOR_VELOCITY = 8;
-  BUG_MAKING_SPEED = 200;
+  BUG_MAKING_SPEED = 100;
   BUG_VELOCITY = 2;
   GAME__LEVEL = 5;
 }
 function level5() {
-  CRATOR_MAKING_SPEED = 20;
+  CRATOR_MAKING_SPEED = 25;
   CRATOR_VELOCITY = 8;
-  BUG_MAKING_SPEED = 100;
+  BUG_MAKING_SPEED = 80;
   BUG_VELOCITY = 2;
   GAME__LEVEL = 6;
 }
@@ -283,7 +283,9 @@ function doFrameWork() {
 }
 
 //이조이 캐릭터 방향키 설정
-leftBtn.addEventListener('click', () => {
+leftBtn.addEventListener('click', (e) => {
+  console.log(e);
+
   if (isJoyMovable === false) {
     return;
   }
