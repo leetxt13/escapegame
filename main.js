@@ -24,25 +24,64 @@ const carrotSound = new Audio('./sound/carrot_pull.mp3');
 
 let isStarted = false;
 let JOY_X = 10;
-let GAME_LIFE = 3;
+let GAME_LIFE = 4;
 let isJoyMovable = false;
 let ANIMATION_TIMER = 0;
-let CRATOR_MAKING_SPEED = 30;
-let CARROT_MAKING_SPEED = 360;
-let BUG_MAKING_SPEED = 200;
-let CARROT_VELOCITY = 7;
-let CRATOR_VELOCITY = 5;
+let CRATOR_MAKING_SPEED = 100;
+let CARROT_MAKING_SPEED = 300;
+let BUG_MAKING_SPEED = 250;
+let CARROT_VELOCITY = 6;
+let CRATOR_VELOCITY = 4;
 let BUG_VELOCITY = 1;
 let isTrapped = false;
 let timer;
 let GAME__TIME = 0;
 let GAME__LEVEL = 1;
 
+//게임난이도 조정
+function level1() {
+  CRATOR_MAKING_SPEED = 70;
+  BUG_MAKING_SPEED = 200;
+  CRATOR_VELOCITY = 6;
+  GAME__LEVEL = 2;
+}
+function level2() {
+  CRATOR_MAKING_SPEED = 50;
+  CRATOR_VELOCITY = 7;
+  GAME__LEVEL = 3;
+}
+function level3() {
+  CRATOR_MAKING_SPEED = 25;
+  CRATOR_VELOCITY = 8;
+  BUG_MAKING_SPEED = 150;
+  GAME__LEVEL = 4;
+}
+function level4() {
+  CRATOR_MAKING_SPEED = 20;
+  CRATOR_VELOCITY = 8;
+  BUG_MAKING_SPEED = 200;
+  BUG_VELOCITY = 2;
+  GAME__LEVEL = 5;
+}
+function level5() {
+  CRATOR_MAKING_SPEED = 20;
+  CRATOR_VELOCITY = 8;
+  BUG_MAKING_SPEED = 100;
+  BUG_VELOCITY = 2;
+  GAME__LEVEL = 6;
+}
+function defaultLevelSettings() {
+  CRATOR_MAKING_SPEED = 100;
+  CARROT_MAKING_SPEED = 300;
+  BUG_MAKING_SPEED = 250;
+  CARROT_VELOCITY = 6;
+  CRATOR_VELOCITY = 4;
+  BUG_VELOCITY = 1;
+}
 // 게임시작
 gameStartButton.addEventListener('click', () => {
   joyCharactor.style.visibility = 'visible';
   isJoyMovable = true;
-
   if (isStarted) {
     stopGame();
   } else if (isStarted == false) {
@@ -53,12 +92,7 @@ function startGame() {
   isStarted = true;
   isJoyMovable = true;
   GAME__TIME = 0;
-  CRATOR_MAKING_SPEED = 30;
-  CARROT_MAKING_SPEED = 360;
-  BUG_MAKING_SPEED = 200;
-  CARROT_VELOCITY = 7;
-  CRATOR_VELOCITY = 5;
-  BUG_VELOCITY = 1;
+  defaultLevelSettings();
   joyCharactor.style.transform = `rotate(0deg)`;
   // joyCharactor.style.visibility = 'visible';
   joyCharactor.style.display = 'block';
@@ -94,6 +128,12 @@ function startGameTimer() {
     if (GAME__TIME == 11) {
       updateLevelText(GAME__LEVEL);
     } else if (GAME__TIME == 21) {
+      updateLevelText(GAME__LEVEL);
+    } else if (GAME__TIME == 31) {
+      updateLevelText(GAME__LEVEL);
+    } else if (GAME__TIME == 41) {
+      updateLevelText(GAME__LEVEL);
+    } else if (GAME__TIME == 51) {
       updateLevelText(GAME__LEVEL);
     }
   }, 1000);
@@ -152,10 +192,11 @@ class Bug extends Cactus {
     ctx.drawImage(this.img, this.x - Xdim, this.y - Ydim);
   }
 }
-function makeImage(imgPath) {
+function makeImage(imgPath, width, height) {
   let img = new Image();
   img.src = imgPath;
-  img.style.position = 'absolute';
+  img.style.width = `${width}rem`;
+  img.style.height = `${height}rem`;
   return img;
 }
 
@@ -169,15 +210,19 @@ function doFrameWork() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   switch (GAME__TIME) {
     case 10:
-      CRATOR_MAKING_SPEED = 10;
-      BUG_MAKING_SPEED = 100;
-      CRATOR_VELOCITY = 7;
-      GAME__LEVEL = 2;
+      level1();
       break;
     case 20:
-      CRATOR_MAKING_SPEED = 5;
-      CRATOR_VELOCITY = 9;
-      GAME__LEVEL = 3;
+      level2();
+      break;
+    case 30:
+      level3();
+      break;
+    case 40:
+      level4();
+      break;
+    case 50:
+      level5();
       break;
   }
   if (ANIMATION_TIMER % CRATOR_MAKING_SPEED === 0) {
@@ -216,7 +261,7 @@ function doFrameWork() {
     }
     cactus.y += CRATOR_VELOCITY;
     checkColision(joyCharactor, cactus);
-    cactus.draw(25, 65, 'red');
+    cactus.draw(25, 65, 'transparent');
   });
 
   carrotBox.forEach((carrot, index, array) => {
@@ -225,7 +270,7 @@ function doFrameWork() {
     }
     carrot.y += CARROT_VELOCITY;
     checkColision2(joyCharactor, carrot);
-    carrot.draw(10, 10, 'red');
+    carrot.draw(10, 10, 'transparent');
   });
   bugBox.forEach((bug, index, array) => {
     if (Math.abs(bug.y - canvasRect.height) < 100) {
@@ -233,7 +278,7 @@ function doFrameWork() {
     }
     bug.y += BUG_VELOCITY;
     checkColision3(joyCharactor, bug);
-    bug.draw(0, 5, 'red');
+    bug.draw(0, 5, 'transparent');
   });
 }
 
@@ -242,11 +287,17 @@ leftBtn.addEventListener('click', () => {
   if (isJoyMovable === false) {
     return;
   }
+  if (JOY_X <= 1) {
+    return;
+  }
   JOY_X += -1;
   joyCharactor.style.left = `${JOY_X}rem`;
 });
 rightBtn.addEventListener('click', () => {
   if (isJoyMovable === false) {
+    return;
+  }
+  if (JOY_X >= 20) {
     return;
   }
   JOY_X += 1;
@@ -257,10 +308,12 @@ document.addEventListener('keydown', (e) => {
     return;
   }
   if (e.key === 'ArrowLeft') {
-    if (JOY_X < 0) {
+    if (JOY_X <= 1) {
       return;
     }
     console.log(fieldRect);
+    console.log(joyRect);
+
     JOY_X += -1;
     joyCharactor.style.left = `${JOY_X}rem`;
   } else if (e.key === 'ArrowRight') {
@@ -282,7 +335,9 @@ function checkColision(joyCharactor, cactus) {
   } else {
     x축차이 = Math.abs(joyRect.x - cactus.x);
   }
-
+  if (GAME__TIME === 120) {
+    gameWin();
+  }
   if (x축차이 < 35 && y축차이 < 55) {
     console.log('충돌');
     playSound(bugSound);
@@ -391,7 +446,7 @@ function gameOver() {
   joyCharactor.style.visibility = 'hidden';
   joyCharactor.style.display = 'none';
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  GAME_LIFE = 3;
+  GAME_LIFE = 4;
   GAME__LEVEL = 1;
   hidegameButton();
   GAME__TIME = 0;
@@ -399,7 +454,32 @@ function gameOver() {
   stopSound(bgSound);
   alert('게임종료');
 }
-
+function gameWin() {
+  if (GAME__TIME === 120) alert('축하합니다. 당신은 조이를 탈출시켰습니다.');
+  ANIMATION_TIMER = 0;
+  cactusBox = [];
+  carrotBox = [];
+  bugBox = [];
+  animation;
+  isStarted = false;
+  isJoyMovable = false;
+  joyCharactor.style.visibility = 'hidden';
+  joyCharactor.style.display = 'none';
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  GAME_LIFE = 4;
+  GAME__LEVEL = 1;
+  hidegameButton();
+  GAME__TIME = 0;
+  clearInterval(timer);
+  playSound(winSound);
+}
+// 처음 안내문 닫기
+const popup = document.querySelector('.pop-up');
+const popup_btn = document.querySelector('.pop-up__refresh');
+popup_btn.addEventListener('click', () => {
+  popup.classList.add('pop-up--hide');
+  gameStartButton.classList.remove('game__button--hide');
+});
 // 사운드
 function playSound(sound) {
   sound.currentTime = 0;
@@ -408,7 +488,3 @@ function playSound(sound) {
 function stopSound(sound) {
   sound.pause();
 }
-
-window.addEventListener('resize', () => {
-  console.log(joyRect);
-});

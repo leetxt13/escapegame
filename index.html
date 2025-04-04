@@ -18,7 +18,9 @@
   <body>
     <section class="game">
       <header class="game__header">
-        <button class="game__button"><i class="fa-solid fa-play"></i></button>
+        <button class="game__button game__button--hide">
+          <i class="fa-solid fa-play"></i>
+        </button>
         <div class="game__state">
           <span class="game__timer">0:0</span>
           <span class="game__score">9</span>
@@ -50,11 +52,23 @@
         <i class="fa-solid fa-heart"></i> -->
       </div>
     </section>
-    <section class="pop-up pop-up--hide">
-      <button class="pop-up__refresh">
-        <i class="fa-solid fa-rotate-right"></i>
-      </button>
-      <span class="pop-up__message">Hello</span>
+    <section class="pop-up">
+      <span class="pop-up__message">게임설명</span>
+      <span class="pop-up__message2"
+        >이 게임은 조이가 운석을 <br />피하는 게임입니다.</span
+      >
+      <div class="talk_about_items">
+        <img src="./img/carrot.png" alt="carrot" />
+        <p class="pop-up__message3">당근은 목숨을 1개 올려줍니다</p>
+        <img src="./img/bug.png" alt="bug" id="talk_about_bug" />
+        <p class="pop-up__message3">벌레는 목숨을 3초간 움직일수 없어요</p>
+        <img src="./img/crator.png" alt="bug" id="talk_about_crator" />
+        <p class="pop-up__message3">운석에 맞으면 목숨을 1개 잃습니다</p>
+      </div>
+      <span class="pop-up__message2"
+        >* 시간이 지날수록 게임레벨이 올라가고 어려워져요</span
+      >
+      <button class="pop-up__refresh">설명닫기</button>
     </section>
   </body>
 </html>
