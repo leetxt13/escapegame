@@ -256,16 +256,18 @@ function doFrameWork() {
     bugBox.push(bug);
   }
   cactusBox.forEach((cactus, index, array) => {
-    if (Math.abs(cactus.y - canvasRect.height) < 100) {
+    if (Math.abs(cactus.y - gameRect.height) < 100) {
       array.splice(index, 1);
     }
+    console.log(canvasRect);
+
     cactus.y += CRATOR_VELOCITY;
     checkColision(joyCharactor, cactus);
     cactus.draw(25, 65, 'transparent');
   });
 
   carrotBox.forEach((carrot, index, array) => {
-    if (Math.abs(carrot.y - canvasRect.height) < 100) {
+    if (Math.abs(carrot.y - gameRect.height) < 100) {
       array.splice(index, 1);
     }
     carrot.y += CARROT_VELOCITY;
@@ -273,7 +275,7 @@ function doFrameWork() {
     carrot.draw(10, 10, 'transparent');
   });
   bugBox.forEach((bug, index, array) => {
-    if (Math.abs(bug.y - canvasRect.height) < 100) {
+    if (Math.abs(bug.y - gameRect.height) < 100) {
       array.splice(index, 1);
     }
     bug.y += BUG_VELOCITY;
@@ -319,7 +321,7 @@ document.addEventListener('keydown', (e) => {
     JOY_X += -1;
     joyCharactor.style.left = `${JOY_X}rem`;
   } else if (e.key === 'ArrowRight') {
-    if (JOY_X >= 20) {
+    if (JOY_X >= 50) {
       return;
     }
     JOY_X += 1;
@@ -457,7 +459,8 @@ function gameOver() {
   alert('게임종료');
 }
 function gameWin() {
-  if (GAME__TIME === 120) alert('축하합니다. 당신은 조이를 탈출시켰습니다.');
+  playSound(winSound);
+  alert('축하합니다. 당신은 조이를 탈출시켰습니다.');
   ANIMATION_TIMER = 0;
   cactusBox = [];
   carrotBox = [];
@@ -473,8 +476,8 @@ function gameWin() {
   hidegameButton();
   GAME__TIME = 0;
   clearInterval(timer);
-  playSound(winSound);
 }
+
 // 처음 안내문 닫기
 const popup = document.querySelector('.pop-up');
 const popup_btn = document.querySelector('.pop-up__refresh');
