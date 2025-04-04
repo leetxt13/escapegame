@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Joy's Escape Game</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./main.js" defer></script>
+    <script
+      src="https://kit.fontawesome.com/3f66ef61be.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- <meta property="og:title" content="joy`s escape" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="배포후 생성된 URL" />
+    <meta property="og:image" content="배포후에 생성된 이미지" /> -->
+  </head>
+  <body>
+    <section class="game">
+      <header class="game__header">
+        <button class="game__button"><i class="fa-solid fa-play"></i></button>
+        <div class="game__state">
+          <span class="game__timer">0:0</span>
+          <span class="game__score">9</span>
+        </div>
+      </header>
+      <canvas id="canvas"></canvas>
+      <section class="game__field">
+        <img
+          class="game__field__joy"
+          src="./img/leejoyCharactor80.png"
+          alt="joy"
+          style="left: 10rem"
+        />
+      </section>
+      <div class="game__moveBtn">
+        <button class="game__moveLeft">
+          <i
+            style="transform: rotate(180deg)"
+            class="fa-solid fa-circle-play"
+          ></i>
+        </button>
+        <button class="game__moveRight">
+          <i class="fa-solid fa-circle-play"></i>
+        </button>
+      </div>
+      <div class="game__life">
+        <!-- <i class="fa-solid fa-heart"></i>
+        <i class="fa-solid fa-heart"></i>
+        <i class="fa-solid fa-heart"></i> -->
+      </div>
+    </section>
+    <section class="pop-up pop-up--hide">
+      <button class="pop-up__refresh">
+        <i class="fa-solid fa-rotate-right"></i>
+      </button>
+      <span class="pop-up__message">Hello</span>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,179 @@
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+body {
+  text-align: center;
+  overflow: hidden;
+}
+.game {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 500px;
+  background: url(img/background.png) center/cover;
+  margin: auto;
+  border-radius: 20px;
+  position: relative;
+}
+#canvas {
+  position: absolute;
+}
+
+.game__header {
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: space-between;
+  padding: 20px;
+  z-index: 1;
+}
+.game__button {
+  width: 40px;
+  height: 60px;
+  background-color: wheat;
+  border: 4px solid black;
+  font-size: 24px;
+  transition: transform 300ms ease-in;
+  flex-basis: 8%;
+}
+
+.game__button:hover {
+  transform: scale(1.1);
+  background-color: rgb(248, 93, 93);
+}
+.game__state {
+  display: flex;
+  justify-content: flex-end;
+  flex-basis: 40%;
+  gap: 1rem;
+}
+.game__timer {
+  width: 50px;
+  background-color: white;
+  text-align: center;
+  border: 5px solid black;
+  border-radius: 20px;
+  font-size: 32px;
+  margin-top: 8px;
+  flex-basis: 30%;
+  line-height: 3rem;
+}
+.game__score {
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 30px;
+  color: black;
+  background-color: rgb(194, 233, 19);
+  border-radius: 50%;
+  border: 3px solid black;
+  text-align: center;
+  padding-bottom: 10px;
+  margin-top: 8px;
+  flex-basis: 20%;
+}
+.game__moveBtn {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.game__moveBtn button {
+  width: 100px;
+  height: 100px;
+  font-size: 52px;
+  outline: none;
+  background-color: transparent;
+}
+.game__moveBtn button:hover {
+  color: red;
+}
+
+.game__moveLeft {
+  margin-right: 15px;
+}
+
+.game__moveRight {
+  margin-left: 15px;
+}
+
+.game__field {
+  background-color: transparent;
+  height: 100%;
+  margin-top: 40px;
+  opacity: 1;
+  position: relative;
+}
+.game__field__joy {
+  position: absolute;
+  top: 150px;
+  transition: transform 300ms ease-in;
+}
+.trapped {
+  border: 1px dashed red;
+  background-color: rgb(38, 6, 219);
+  border-radius: 50%;
+}
+.game__life {
+  font-size: 1.5rem;
+  color: red;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+}
+
+.pop-up {
+  display: block;
+  width: 400px;
+  height: 140px;
+  padding: 20px;
+  background-color: #00000090;
+  color: white;
+  text-align: center;
+  margin: auto;
+  transform: translateY(-150%);
+  border-radius: 20px;
+}
+.pop-up--hide {
+  display: none;
+}
+.pop-up__refresh {
+  width: 60px;
+  height: 60px;
+  font-size: 24px;
+  background-color: wheat;
+  border: 2px solid black;
+  border-radius: 50%;
+}
+
+.pop-up__message {
+  display: block;
+  font-size: 38px;
+}
+
+@media screen and (max-width: 768px) {
+  html {
+    height: 100%;
+  }
+  body {
+    height: 100%;
+  }
+  .game {
+    height: 100%;
+  }
+  #canvas {
+    height: 100%;
+    width: 100%;
+  }
+  .game__field__joy {
+    top: initial;
+    left: 1rem;
+    bottom: 1rem;
+  }
+  .game__moveBtn {
+    width: 100%;
+  }
+}
