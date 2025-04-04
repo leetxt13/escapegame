@@ -106,7 +106,6 @@ function stopGame() {
   isStarted = false;
   isJoyMovable = false;
   cancelAnimationFrame(animation);
-  isJoyMovable = false;
   hidegameButton();
   stopSound(bgSound);
   clearInterval(timer);
@@ -135,6 +134,13 @@ function startGameTimer() {
       updateLevelText(GAME__LEVEL);
     } else if (GAME__TIME == 51) {
       updateLevelText(GAME__LEVEL);
+    } else if (GAME__TIME == 200) {
+      gameWin();
+      setTimeout(() => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stopGame();
+        defaultLevelSettings();
+      }, 500);
     }
   }, 1000);
 }
@@ -339,9 +345,7 @@ function checkColision(joyCharactor, cactus) {
   } else {
     x축차이 = Math.abs(joyRect.x - cactus.x);
   }
-  if (GAME__TIME === 120) {
-    gameWin();
-  }
+
   if (x축차이 < 35 && y축차이 < 55) {
     console.log('충돌');
     playSound(bugSound);
@@ -355,6 +359,7 @@ function checkColision(joyCharactor, cactus) {
           makeGameLife(GAME_LIFE);
           return;
         }
+
         restartGame();
       }, 100);
     }
@@ -461,21 +466,6 @@ function gameOver() {
 function gameWin() {
   playSound(winSound);
   alert('축하합니다. 당신은 조이를 탈출시켰습니다.');
-  ANIMATION_TIMER = 0;
-  cactusBox = [];
-  carrotBox = [];
-  bugBox = [];
-  animation;
-  isStarted = false;
-  isJoyMovable = false;
-  joyCharactor.style.visibility = 'hidden';
-  joyCharactor.style.display = 'none';
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  GAME_LIFE = 4;
-  GAME__LEVEL = 1;
-  hidegameButton();
-  GAME__TIME = 0;
-  clearInterval(timer);
 }
 
 // 처음 안내문 닫기
